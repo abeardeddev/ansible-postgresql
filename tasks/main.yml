@@ -7,3 +7,5 @@
   when: ansible_os_family == 'Debian'
 
 - include_tasks: configuration.yml
+
+- include_tasks: users.yml

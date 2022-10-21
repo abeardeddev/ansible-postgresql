@@ -32,6 +32,13 @@ PostgreSQL locales that wil be generated for use by database:
     postgresql_locales:
       - 'en_US.UTF-8'
 
+PostgreSQL users that will be added:
+
+    postgresql_users:
+      - user: bob # Required if adding users
+        password: abc123
+      - user: jane
+
 Dependencies
 ------------
 

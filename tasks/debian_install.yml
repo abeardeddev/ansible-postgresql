@@ -32,6 +32,16 @@
     state: latest
   notify: Enable Postgresql
 
+- name: Enable PostgresSQL
+  systemd:
+    name: postgresql
+    enabled: yes
+
+- name: Start PostgresSQL
+  systemd:
+    name: postgresql
+    state: started
+
 - name: Ensure locales are present
   locale_gen: "name={{ item }} state=present"
   with_items: "{{ postgresql_locales }}"
