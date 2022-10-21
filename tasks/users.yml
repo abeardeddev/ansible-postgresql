@@ -3,9 +3,21 @@
 - name: Create PostgreSQL super user
   become: true
   become_user: postgres
-  postgres_user:
+  postgresql_user:
     name: '{{ postgresql_root_user }}'
-    password: '{{ postgresql_root_pass }}'
+    password: '{{ postgresql_root_password }}'
     role_attr_flags: CREATEDB,SUPERUSER,CREATEROLE
     encrypted: true
     state: present
+
+- name: Create PostgreSQL users
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: "{{ item.user }}"
+    password: "{{ item.password | default(omit) }}"
+    role_attr_flags: "{{ item.role_attr_flags | default(omit) }}"
+    # login_host: "{{ item.login_host | default('localhost') }}"
+    # login_password: "{{ item.login_password | default(omit) }}"
+    # login_user: "{{ item.login_user | default('postgres') }}"
+  with_items: "{{ postgresql_users }}"

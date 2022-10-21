@@ -1,6 +1,12 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    postgresql_users:
+      - user: bob
+        password: abc12345
+      - user: jane
+        password: xyz123
   tasks:
     - name: "Include abeardeddev.postgres"
       include_role:

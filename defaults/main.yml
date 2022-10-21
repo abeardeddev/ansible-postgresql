@@ -9,3 +9,5 @@ listen_local: false
 
 postgresql_locales:
   - 'en_US.UTF-8'
+
+postgresql_users: []
