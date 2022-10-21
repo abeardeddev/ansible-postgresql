@@ -1,0 +1,11 @@
+---
+postgresql_version: 14
+
+postgresql_root_user: "root"
+
+postgresql_root_password: "r00tPa55"
+
+listen_local: false
+
+postgresql_locales:
+  - 'en_US.UTF-8'

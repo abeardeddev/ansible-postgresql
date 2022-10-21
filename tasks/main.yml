@@ -1,0 +1,9 @@
+---
+- name: Include Debian OS-specific vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version.split('.')[0] }}.yml"
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: debian_install.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: configuration.yml

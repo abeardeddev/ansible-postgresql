@@ -1,0 +1,11 @@
+---
+
+- name: Create PostgreSQL super user
+  become: true
+  become_user: postgres
+  postgres_user:
+    name: '{{ postgresql_root_user }}'
+    password: '{{ postgresql_root_pass }}'
+    role_attr_flags: CREATEDB,SUPERUSER,CREATEROLE
+    encrypted: true
+    state: present

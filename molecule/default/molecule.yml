@@ -1,0 +1,18 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: "registry.gitlab.com/aussielunix/ansible/molecule-containers/${MOLECULE_DISTRO:-debian:bullseye}"
+    privileged: true
+    pre_build_image: true
+    override_command: false
+    tmpfs:
+      - /run
+      - /tmp
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

@@ -1,0 +1,25 @@
+---
+
+- name: Ensure PostgreSQL is listening on *
+  lineinfile:
+    dest: "{{ postgresql_conf_path }}/postgresql.conf"
+    regexp: '^listen_addresses\s*='
+    line: "listen_addresses='*'"
+    state: present
+  when: "listen_local == false"
+  notify: Restart Postgresql
+
+- name: Add new configuration to "pg_hba.conf"
+  blockinfile:
+    dest: "{{ postgresql_conf_path }}/pg_hba.conf"
+    block: |
+      host    all             all             0.0.0.0/0                md5
+      host    all             all             ::/0                     md5
+  when: "listen_local == false"
+  notify: Restart Postgresql
+
+- name: Change peer identification to trust
+  shell: /bin/sed -i '/^local/s/peer/trust/' "{{ postgresql_conf_path }}/pg_hba.conf"
+  args:
+    warn: no
+  notify: Restart Postgresql
